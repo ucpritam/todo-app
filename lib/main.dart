@@ -40,7 +40,13 @@ class _HomePageState extends State<HomePage> {
     _updateTaskList();
   }
 
-  _addTodo() {
+  _updateTaskList() {
+    setState(() {
+      _taskList = DBProvider.instance.getTaskList();
+    });
+  }
+
+  _addToDo() {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
 
@@ -54,12 +60,6 @@ class _HomePageState extends State<HomePage> {
       }
       widget.updateTaskList();
     }
-  }
-
-  _updateTaskList() {
-    setState(() {
-      _taskList = DBProvider.instance.getTaskList();
-    });
   }
 
   Widget _buildTasks(Task task) {
@@ -137,7 +137,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 TextButton(
-                  onPressed: _addTodo,
+                  onPressed: _addToDo,
                   child: const Text(
                     "Add",
                     style: TextStyle(
