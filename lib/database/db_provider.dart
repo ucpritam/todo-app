@@ -3,50 +3,73 @@ import 'package:path/path.dart';
 import 'package:todo_app/model/task_model.dart';
 
 class DBProvider {
-  DBProvider._();
-  static final DBProvider instance = DBProvider._();
-  static Database _database;
+  Database? _database;
 
-  Future<Database> get database async => _database ?? await _initDataBase();
+  //Connect to Database
+  Future<Database> get database async {
+    final dbpath = await getDatabasesPath(); //location of database
+    const dbname = 'toDo.db'; //name of database
+    final path = join(dbpath, dbname); //creating full path
+    _database = await openDatabase(path,
+        version: 1, onCreate: _createDB); //open the connection
 
-  Future<Database> _initDataBase() async {
-    return await openDatabase(join(await getDatabasesPath(), 'toDo.db'),
-        onCreate: (db, version) async {
-      await db.execute('''
-      CREATE TABLE todoTaskTable(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, status INTEGER)
+    return _database!;
+  }
+
+  //Create Tables
+  Future<void> _createDB(Database db, int version) async {
+    await db.execute('''
+        CREATE TABLE todoTaskTable(
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          title TEXT,
+          status INTEGER
+        )
       ''');
-    }, version: 1);
   }
 
-  Future<List<Map<String, dynamic>>> getTaskMapList() async {
-    Database db = await this.database;
-    final List<Map<String, dynamic>> result = await db.query('todoTaskTable');
-    return result;
-  }
+  //Add
+  Future<void> insertTask(Task task) async {
+    final db = await database; //get the connection to database
 
-  Future<List<Task>> getTaskList() async {
-    final List<Map<String, dynamic>> taskMapList = await getTaskMapList();
-    final List<Task> taskList = [];
-    taskMapList.forEach((taskMap) {
-      taskList.add(Task.fromMap(taskMap));
-    });
-    return taskList;
-  }
-
-  Future<int> insertTask(Task task) async {
-    Database db = await this.database;
-    final int result = await db.insert('todoTaskTable', task.toMap());
-    return result;
-  }
-
-  Future<int> updateTask(Task task) async {
-    Database db = await this.database;
-    final int result = await db.update(
+    //insert task
+    await db.insert(
       'todoTaskTable',
       task.toMap(),
-      where: "id = ?",
+      conflictAlgorithm: ConflictAlgorithm.replace, //replace duplicate entry
+    );
+  }
+
+  //Delete
+  Future<void> deleteTask(Task task) async {
+    final db = await database;
+
+    await db.delete(
+      'todoTaskTable',
+      where: 'id == ?', //condition to check id
       whereArgs: [task.id],
     );
-    return result;
+  }
+
+  //Fetch all data from database
+  Future<List<Task>> getTask() async {
+    final db = await database;
+
+    //query database and save the task as list of maps
+    List<Map<String, dynamic>> result = await db.query(
+      'todoTaskTable',
+      orderBy: 'id DESC',
+    );
+
+    //convert result from list of maps to list of task
+
+    return List.generate(
+        result.length,
+        (i) => Task(
+              id: result[i]['id'],
+              title: result[i]['title'],
+              status: result[i]['status'] == 1
+                  ? true
+                  : false, //convert integer to bool
+            ));
   }
 }

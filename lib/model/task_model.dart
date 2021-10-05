@@ -1,25 +1,31 @@
 class Task {
-  int id;
-  String title;
-  int status;
+  int? id;
+  final String title;
+  bool status;
 
-  Task({this.id, this.title, this.status});
+  //constructor
+  Task({this.id, required this.title, required this.status});
 
+  //Converting data into map
   Map<String, dynamic> toMap() {
-    final map = Map<String, dynamic>();
-    if (id != null) {
-      map["id"] = id;
-    }
-    map["title"] = title;
-    map["status"] = status;
-    return map;
+    return {
+      'id': id,
+      'title': title,
+      'status': status ? 1 : 0,
+    };
   }
 
-  factory Task.fromMap(Map<String, dynamic> map) {
-    return Task(
-      id: map["id"],
-      title: map["title"],
-      status: map["status"],
-    );
+  //debugging
+  @override
+  String toString() {
+    return 'Task(id: $id, title: $title, status: $status)';
   }
+
+  // factory Task.fromMap(Map<String, dynamic> map) {
+  //   return Task(
+  //     id: map["id"],
+  //     title: map["title"],
+  //     status: map["status"],
+  //   );
+  // }
 }

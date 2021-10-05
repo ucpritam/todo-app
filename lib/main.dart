@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
 class HomePage extends StatefulWidget {
   final Function updateTaskList;
   final Task task;
-  HomePage({Key key, this.updateTaskList, this.task});
+  HomePage({required Key key, this.updateTaskList, this.task});
   @override
   _HomePageState createState() => _HomePageState();
 }
