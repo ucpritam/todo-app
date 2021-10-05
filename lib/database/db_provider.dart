@@ -8,7 +8,7 @@ class DBProvider {
   //Connect to Database
   Future<Database> get database async {
     final dbpath = await getDatabasesPath(); //location of database
-    const dbname = 'toDo.db'; //name of database
+    const dbname = 'todo.db'; //name of database
     final path = join(dbpath, dbname); //creating full path
     _database = await openDatabase(path,
         version: 1, onCreate: _createDB); //open the connection
@@ -19,7 +19,7 @@ class DBProvider {
   //Create Tables
   Future<void> _createDB(Database db, int version) async {
     await db.execute('''
-        CREATE TABLE todoTaskTable(
+        CREATE TABLE todoTable(
           id INTEGER PRIMARY KEY AUTOINCREMENT,
           title TEXT,
           status INTEGER
@@ -33,7 +33,7 @@ class DBProvider {
 
     //insert task
     await db.insert(
-      'todoTaskTable',
+      'todoTable',
       task.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace, //replace duplicate entry
     );
@@ -44,7 +44,7 @@ class DBProvider {
     final db = await database;
 
     await db.delete(
-      'todoTaskTable',
+      'todoTable',
       where: 'id == ?', //condition to check id
       whereArgs: [task.id],
     );
@@ -56,12 +56,11 @@ class DBProvider {
 
     //query database and save the task as list of maps
     List<Map<String, dynamic>> result = await db.query(
-      'todoTaskTable',
+      'todoTable',
       orderBy: 'id DESC',
     );
 
     //convert result from list of maps to list of task
-
     return List.generate(
         result.length,
         (i) => Task(
