@@ -1,17 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:todo_app/model/task_model.dart';
 
 class TaskCard extends StatefulWidget {
   final int id;
   final String title;
   bool status;
   final Function insertTask;
+  final Function deleteTask;
 
   TaskCard(
       {required this.id,
       required this.title,
       required this.status,
-      required this.insertTask,
+      required this.insertTask, //change in checkbox
+      required this.deleteTask, //delete button
       Key? key})
       : super(key: key);
 
@@ -22,6 +25,10 @@ class TaskCard extends StatefulWidget {
 class _TaskCardState extends State<TaskCard> {
   @override
   Widget build(BuildContext context) {
+    //local todo
+    var updateTask =
+        Task(id: widget.id, title: widget.title, status: widget.status);
+
     return Card(
         child: Row(
       children: [
@@ -48,9 +55,18 @@ class _TaskCardState extends State<TaskCard> {
               setState(() {
                 widget.status = value!;
               });
+
+              updateTask.status = value!;
+              widget.insertTask(updateTask);
             },
           ),
         ),
+        IconButton(
+          onPressed: () {
+            widget.deleteTask(updateTask);
+          },
+          icon: const Icon(Icons.delete_forever),
+        )
       ],
     ));
   }

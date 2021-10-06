@@ -3,8 +3,12 @@ import 'package:todo_app/database/db_provider.dart';
 import './task_card.dart';
 
 class TodoList extends StatelessWidget {
+  final Function insertTask;
+  final Function deleteTask;
+
   var db = DBProvider();
-  TodoList({Key? key}) : super(key: key);
+  TodoList({required this.insertTask, required this.deleteTask, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +26,8 @@ class TodoList extends StatelessWidget {
               id: data[i].id,
               title: data[i].title,
               status: data[i].status,
-              insertTask: () {},
+              insertTask: insertTask,
+              deleteTask: deleteTask,
             ),
           );
         },

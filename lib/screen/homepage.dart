@@ -19,6 +19,11 @@ class _HomePageState extends State<HomePage> {
     setState(() {});
   }
 
+  void deleteItem(Task task) async {
+    await db.deleteTask(task);
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +32,10 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Column(
         children: [
-          TodoList(),
+          TodoList(
+            insertTask: addItem,
+            deleteTask: deleteItem,
+          ),
           UserInput(
             insertTask: addItem,
           ),
