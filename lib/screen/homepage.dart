@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app/database/db_provider.dart';
 import 'package:todo_app/model/task_model.dart';
-import '../widget/user_input.dart';
 import '../widget/todo_list.dart';
+import './add_todo.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -35,14 +35,20 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Text('To-Do App'),
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   child: const Icon(
-      //     Icons.add,
-      //     color: Colors.white,
-      //     size: 30,
-      //   ),
-      //   onPressed: () {},
-      // ),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
+          size: 30,
+        ),
+        onPressed: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => AddToDoPage(
+                addItem: addItem,
+              ),
+            )),
+      ),
       body: SafeArea(
         child: Column(
           children: [
@@ -50,9 +56,6 @@ class _HomePageState extends State<HomePage> {
               insertTask: addItem,
               deleteTask: deleteItem,
               updateTask: updateItem,
-            ),
-            UserInput(
-              insertTask: addItem,
             ),
           ],
         ),

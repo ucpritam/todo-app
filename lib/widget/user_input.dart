@@ -30,6 +30,7 @@ class UserInput extends StatelessWidget {
             onTap: () {
               var myTodo = Task(title: textController.text, status: false);
               insertTask(myTodo);
+              Navigator.pop(context);
             },
             child: Container(
               color: Colors.blue,
