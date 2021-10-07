@@ -35,17 +35,27 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Text('To-Do App'),
       ),
-      body: Column(
-        children: [
-          TodoList(
-            insertTask: addItem,
-            deleteTask: deleteItem,
-            updateTask: updateItem,
-          ),
-          UserInput(
-            insertTask: addItem,
-          ),
-        ],
+      // floatingActionButton: FloatingActionButton(
+      //   child: const Icon(
+      //     Icons.add,
+      //     color: Colors.white,
+      //     size: 30,
+      //   ),
+      //   onPressed: () {},
+      // ),
+      body: SafeArea(
+        child: Column(
+          children: [
+            TodoList(
+              insertTask: addItem,
+              deleteTask: deleteItem,
+              updateTask: updateItem,
+            ),
+            UserInput(
+              insertTask: addItem,
+            ),
+          ],
+        ),
       ),
     );
   }
