@@ -12,15 +12,20 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  var db = DBProvider();
+  // var db = DBProvider();
 
   void addItem(Task task) async {
-    await db.insertTask(task);
+    await DBProvider.instance.insertTask(task);
     setState(() {});
   }
 
   void deleteItem(Task task) async {
-    await db.deleteTask(task);
+    await DBProvider.instance.deleteTask(task);
+    setState(() {});
+  }
+
+  void updateItem(Task task) async {
+    await DBProvider.instance.updateTask(task);
     setState(() {});
   }
 
@@ -35,6 +40,7 @@ class _HomePageState extends State<HomePage> {
           TodoList(
             insertTask: addItem,
             deleteTask: deleteItem,
+            updateTask: updateItem,
           ),
           UserInput(
             insertTask: addItem,

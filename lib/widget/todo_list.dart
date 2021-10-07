@@ -5,16 +5,21 @@ import './task_card.dart';
 class TodoList extends StatelessWidget {
   final Function insertTask;
   final Function deleteTask;
+  final Function updateTask;
 
-  var db = DBProvider();
-  TodoList({required this.insertTask, required this.deleteTask, Key? key})
+  // final db = DBProvider();
+  const TodoList(
+      {required this.insertTask,
+      required this.deleteTask,
+      required this.updateTask,
+      Key? key})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: FutureBuilder(
-        future: db.getTask(),
+        future: DBProvider.instance.getTask(),
         initialData: const [],
         builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
           var data = snapshot.data; //data to show
@@ -28,6 +33,7 @@ class TodoList extends StatelessWidget {
               status: data[i].status,
               insertTask: insertTask,
               deleteTask: deleteTask,
+              updateTask: updateTask,
             ),
           );
         },

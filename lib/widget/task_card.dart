@@ -5,16 +5,18 @@ import 'package:todo_app/model/task_model.dart';
 class TaskCard extends StatefulWidget {
   final int id;
   final String title;
-  bool status;
+  final bool status;
   final Function insertTask;
   final Function deleteTask;
+  final Function updateTask;
 
-  TaskCard(
+  const TaskCard(
       {required this.id,
       required this.title,
       required this.status,
       required this.insertTask, //change in checkbox
       required this.deleteTask, //delete button
+      required this.updateTask,
       Key? key})
       : super(key: key);
 
@@ -26,7 +28,7 @@ class _TaskCardState extends State<TaskCard> {
   @override
   Widget build(BuildContext context) {
     //local todo
-    var updateTask =
+    var myTask =
         Task(id: widget.id, title: widget.title, status: widget.status);
 
     return Card(
@@ -52,18 +54,18 @@ class _TaskCardState extends State<TaskCard> {
           child: Checkbox(
             value: widget.status,
             onChanged: (bool? value) {
-              setState(() {
-                widget.status = value!;
-              });
+              // setState(() {
+              //   widget.status = value!;
+              // });
 
-              updateTask.status = value!;
-              widget.insertTask(updateTask);
+              myTask.status = value!;
+              widget.updateTask(myTask);
             },
           ),
         ),
         IconButton(
           onPressed: () {
-            widget.deleteTask(updateTask);
+            widget.deleteTask(myTask);
           },
           icon: const Icon(Icons.delete_forever),
         )

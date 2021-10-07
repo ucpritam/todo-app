@@ -3,7 +3,11 @@ import 'package:path/path.dart';
 import 'package:todo_app/model/task_model.dart';
 
 class DBProvider {
-  Database? _database;
+  DBProvider._();
+
+  static final DBProvider instance = DBProvider._();
+
+  static Database? _database;
 
   //Connect to Database
   Future<Database> get database async {
@@ -46,6 +50,18 @@ class DBProvider {
     await db.delete(
       'todoTable',
       where: 'id == ?', //condition to check id
+      whereArgs: [task.id],
+    );
+  }
+
+  //Update
+  Future<void> updateTask(Task task) async {
+    final db = await database;
+
+    await db.update(
+      'todoTable',
+      task.toMap(),
+      where: 'id == ?',
       whereArgs: [task.id],
     );
   }
