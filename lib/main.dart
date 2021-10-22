@@ -17,15 +17,15 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  ThemeProvider themeProvider = ThemeProvider();
+  // ThemeProvider themeProvider = ThemeProvider();
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => themeProvider,
-      child: Consumer<ThemeProvider>(builder: (context, value, child) {
+      create: (_) => ThemeProvider(),
+      child: Consumer<ThemeProvider>(builder: (_, value, __) {
         return MaterialApp(
-          theme: Mode.themeData(themeProvider.darkTheme),
+          theme: Mode.themeData(value.darkTheme),
           title: 'ToDo List',
           debugShowCheckedModeBanner: false,
           home: const HomePage(),

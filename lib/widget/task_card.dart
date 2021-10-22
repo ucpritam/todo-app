@@ -25,11 +25,19 @@ class TaskCard extends StatefulWidget {
 }
 
 class _TaskCardState extends State<TaskCard> {
+  late Task myTask;
+  @override
+  void initState() {
+    super.initState();
+    myTask = Task(id: widget.id, title: widget.title, status: widget.status);
+    print('Inside initState');
+  }
+
   @override
   Widget build(BuildContext context) {
-    //local todo
-    var myTask =
-        Task(id: widget.id, title: widget.title, status: widget.status);
+    // local todo
+    // var myTask =
+    //     Task(id: widget.id, title: widget.title, status: widget.status);
 
     return Card(
         child: Row(
@@ -60,6 +68,7 @@ class _TaskCardState extends State<TaskCard> {
 
               myTask.status = value!;
               widget.updateTask(myTask);
+              print('Inside build');
             },
           ),
         ),

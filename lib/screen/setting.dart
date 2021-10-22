@@ -22,9 +22,7 @@ class _SettingScreenState extends State<SettingScreen> {
         child: Switch(
           value: themeChange.darkTheme,
           onChanged: (value) {
-            setState(() {
-              themeChange.darkTheme = value;
-            });
+            themeChange.darkTheme = value;
           },
         ),
       ),
