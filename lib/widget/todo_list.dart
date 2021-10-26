@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app/database/db_provider.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_app/listProvider/task_provider.dart';
+import 'package:todo_app/model/task_model.dart';
 import './task_card.dart';
 
 class TodoList extends StatelessWidget {
@@ -7,7 +9,6 @@ class TodoList extends StatelessWidget {
   final Function deleteTask;
   final Function updateTask;
 
-  // final db = DBProvider();
   const TodoList(
       {required this.insertTask,
       required this.deleteTask,
@@ -18,19 +19,21 @@ class TodoList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: FutureBuilder(
-        future: DBProvider.instance.getTask(),
-        initialData: const [],
-        builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
-          var data = snapshot.data; //data to show
-          var datalength = data!.length;
+      child: Consumer<TaskProvider>(
+        builder: (_, todos, __) {
+          var data = todos.tasks; //data to show
 
           return ListView.builder(
-            itemCount: datalength,
+            itemCount: data.length,
             itemBuilder: (context, i) => TaskCard(
-              id: data[i].id,
-              title: data[i].title,
-              status: data[i].status,
+              task: Task(
+                id: data[i].id,
+                title: data[i].title,
+                status: data[i].status,
+              ),
+              // insertTask: todos.insertTask,
+              // deleteTask: todos.deleteTask,
+              // updateTask: todos.updateTask,
               insertTask: insertTask,
               deleteTask: deleteTask,
               updateTask: updateTask,

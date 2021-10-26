@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/listProvider/task_provider.dart';
 import 'package:todo_app/screen/homepage.dart';
 import 'package:provider/provider.dart';
 import './theme/mode.dart';
@@ -17,12 +18,13 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  // ThemeProvider themeProvider = ThemeProvider();
-
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => ThemeProvider(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
+        ChangeNotifierProvider(create: (_) => TaskProvider()),
+      ],
       child: Consumer<ThemeProvider>(builder: (_, value, __) {
         return MaterialApp(
           theme: Mode.themeData(value.darkTheme),

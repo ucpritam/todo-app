@@ -2,18 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app/model/task_model.dart';
 
-class TaskCard extends StatefulWidget {
-  final int id;
-  final String title;
-  final bool status;
+class TaskCard extends StatelessWidget {
+  final Task task;
   final Function insertTask;
   final Function deleteTask;
   final Function updateTask;
 
   const TaskCard(
-      {required this.id,
-      required this.title,
-      required this.status,
+      {required this.task,
       required this.insertTask, //change in checkbox
       required this.deleteTask, //delete button
       required this.updateTask,
@@ -21,24 +17,7 @@ class TaskCard extends StatefulWidget {
       : super(key: key);
 
   @override
-  _TaskCardState createState() => _TaskCardState();
-}
-
-class _TaskCardState extends State<TaskCard> {
-  // late Task myTask;
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   myTask = Task(id: widget.id, title: widget.title, status: widget.status);
-  //   print('Inside initState');
-  // }
-
-  @override
   Widget build(BuildContext context) {
-    // local todo
-    var myTask =
-        Task(id: widget.id, title: widget.title, status: widget.status);
-
     return Card(
         child: Row(
       children: [
@@ -49,7 +28,7 @@ class _TaskCardState extends State<TaskCard> {
               Padding(
                 padding: const EdgeInsets.all(18.0),
                 child: Text(
-                  widget.title,
+                  task.title,
                   style: const TextStyle(
                       fontWeight: FontWeight.bold, fontSize: 18),
                 ),
@@ -60,23 +39,17 @@ class _TaskCardState extends State<TaskCard> {
         Container(
           margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           child: Checkbox(
-            value: widget.status,
+            value: task.status,
             onChanged: (bool? value) {
-              // setState(() {
-              //   widget.status = value!;
-              // });
-
-              // Task(title: widget.title, status: value!);
-
-              myTask.status = value!;
-              widget.updateTask(myTask);
+              task.status = value ?? false;
+              updateTask(task);
               print('Inside build');
             },
           ),
         ),
         IconButton(
           onPressed: () {
-            widget.deleteTask(myTask);
+            deleteTask(task);
           },
           icon: const Icon(Icons.delete_forever),
         )

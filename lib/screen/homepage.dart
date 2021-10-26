@@ -13,21 +13,16 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // var db = DBProvider();
-
   void addItem(Task task) async {
     await DBProvider.instance.insertTask(task);
-    setState(() {});
   }
 
   void deleteItem(Task task) async {
     await DBProvider.instance.deleteTask(task);
-    setState(() {});
   }
 
   void updateItem(Task task) async {
     await DBProvider.instance.updateTask(task);
-    setState(() {});
   }
 
   @override
