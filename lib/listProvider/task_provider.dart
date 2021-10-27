@@ -3,12 +3,13 @@ import 'package:flutter/cupertino.dart';
 import '../model/task_model.dart';
 
 class TaskProvider extends ChangeNotifier {
-  List<Task> _tasks = List.empty();
+  final List<Task> _tasks = [];
 
-  List<Task> get tasks => tasks;
+  List<Task> get tasks => _tasks;
 
   void insertTask(Task task) {
     _tasks.add(task);
+    print('inside addtask of task provider');
     notifyListeners();
   }
 

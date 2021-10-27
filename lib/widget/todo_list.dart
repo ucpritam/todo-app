@@ -18,11 +18,11 @@ class TodoList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('new task added to list');
     return Expanded(
       child: Consumer<TaskProvider>(
         builder: (_, todos, __) {
           var data = todos.tasks; //data to show
-
           return ListView.builder(
             itemCount: data.length,
             itemBuilder: (context, i) => TaskCard(
