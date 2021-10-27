@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/listProvider/task_provider.dart';
 import 'package:todo_app/model/task_model.dart';
 
 class UserInput extends StatefulWidget {
   final Function insertTask; //receive addItem method
-  const UserInput({required this.insertTask, Key? key}) : super(key: key);
+  final test = TaskProvider();
+  UserInput({required this.insertTask, Key? key}) : super(key: key);
 
   @override
   _UserInputState createState() => _UserInputState();
@@ -45,6 +47,7 @@ class _UserInputState extends State<UserInput> {
               if (validate == false) {
                 var myTodo = Task(title: textController.text, status: false);
                 widget.insertTask(myTodo);
+                widget.test.insertTask(myTodo);
                 Navigator.pop(context);
               }
             },

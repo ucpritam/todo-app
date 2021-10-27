@@ -1,14 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:todo_app/listProvider/task_provider.dart';
 import 'package:todo_app/model/task_model.dart';
 
 class TaskCard extends StatelessWidget {
+  final test = TaskProvider();
   final Task task;
   final Function insertTask;
   final Function deleteTask;
   final Function updateTask;
 
-  const TaskCard(
+  TaskCard(
       {required this.task,
       required this.insertTask, //change in checkbox
       required this.deleteTask, //delete button
@@ -43,6 +45,7 @@ class TaskCard extends StatelessWidget {
             onChanged: (bool? value) {
               task.status = value ?? false;
               updateTask(task);
+              test.updateTask(task);
               print('Inside build');
             },
           ),
@@ -50,6 +53,7 @@ class TaskCard extends StatelessWidget {
         IconButton(
           onPressed: () {
             deleteTask(task);
+            test.deleteTask(task);
           },
           icon: const Icon(Icons.delete_forever),
         )
