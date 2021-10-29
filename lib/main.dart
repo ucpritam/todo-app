@@ -22,8 +22,8 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => ThemeProvider()),
-        ChangeNotifierProvider(create: (_) => TaskProvider()),
+        ChangeNotifierProvider<ThemeProvider>(create: (_) => ThemeProvider()),
+        ChangeNotifierProvider<TaskProvider>(create: (_) => TaskProvider()),
       ],
       child: Consumer<ThemeProvider>(builder: (_, value, __) {
         return MaterialApp(

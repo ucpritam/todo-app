@@ -9,7 +9,9 @@ class TaskProvider extends ChangeNotifier {
 
   void insertTask(Task task) {
     _tasks.add(task);
-    print('inside addtask of task provider');
+
+    // print('inside addtask of task provider');
+    // print(task.id);
     notifyListeners();
   }
 

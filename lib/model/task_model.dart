@@ -1,10 +1,10 @@
 class Task {
-  int? id;
+  String id;
   final String title;
   bool status;
 
   //constructor
-  Task({this.id, required this.title, required this.status});
+  Task({required this.id, required this.title, required this.status});
 
   //Converting data into map
   Map<String, dynamic> toMap() {

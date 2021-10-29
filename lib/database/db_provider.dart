@@ -23,8 +23,8 @@ class DBProvider {
   //Create Tables
   Future<void> _createDB(Database db, int version) async {
     await db.execute('''
-        CREATE TABLE todoTable(
-          id INTEGER PRIMARY KEY AUTOINCREMENT,
+        CREATE TABLE todooTable(
+          id TEXT PRIMARY KEY,
           title TEXT,
           status INTEGER
         )
@@ -37,10 +37,11 @@ class DBProvider {
 
     //insert task
     await db.insert(
-      'todoTable',
+      'todooTable',
       task.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace, //replace duplicate entry
     );
+    print(task.id);
   }
 
   //Delete
@@ -48,7 +49,7 @@ class DBProvider {
     final db = await database;
 
     await db.delete(
-      'todoTable',
+      'todooTable',
       where: 'id == ?', //condition to check id
       whereArgs: [task.id],
     );
@@ -59,7 +60,7 @@ class DBProvider {
     final db = await database;
 
     await db.update(
-      'todoTable',
+      'todooTable',
       task.toMap(),
       where: 'id == ?',
       whereArgs: [task.id],
@@ -72,7 +73,7 @@ class DBProvider {
 
     //query database and save the task as list of maps
     List<Map<String, dynamic>> result = await db.query(
-      'todoTable',
+      'todooTable',
       orderBy: 'id DESC',
     );
 
