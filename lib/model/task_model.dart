@@ -6,10 +6,6 @@ class Task {
   //constructor
   Task({required this.id, required this.title, this.status = false});
 
-  void toggle() {
-    status = !status;
-  }
-
   //Converting data into map
   Map<String, dynamic> toMap() {
     return {
