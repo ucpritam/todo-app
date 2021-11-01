@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import '../model/task_model.dart';
+import 'dart:collection';
 
 class TaskProvider extends ChangeNotifier {
   final List<Task> _tasks = [];
 
-  List<Task> get tasks => _tasks;
+  // List<Task> get tasks => _tasks;
+  UnmodifiableListView<Task> get tasks => UnmodifiableListView(_tasks);
 
   void insertTask(Task task) {
     _tasks.add(task);
