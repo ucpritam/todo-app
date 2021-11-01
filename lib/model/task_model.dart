@@ -4,14 +4,18 @@ class Task {
   bool status;
 
   //constructor
-  Task({required this.id, required this.title, required this.status});
+  Task({required this.id, required this.title, this.status = false});
+
+  void toggle() {
+    status = !status;
+  }
 
   //Converting data into map
   Map<String, dynamic> toMap() {
     return {
       'id': id,
       'title': title,
-      'status': status ? 1 : 0,
+      'status': status ? true : false,
     };
   }
 

@@ -9,20 +9,17 @@ class TaskProvider extends ChangeNotifier {
 
   void insertTask(Task task) {
     _tasks.add(task);
-
-    // print('inside addtask of task provider');
-    // print(task.id);
     notifyListeners();
   }
 
   void deleteTask(Task task) {
-    _tasks.remove(task);
+    _tasks.removeWhere((element) => element.id == task.id);
     notifyListeners();
   }
 
-  //used delete method for testing, will update later
   void updateTask(Task task) {
-    _tasks.remove(task);
+    int index = _tasks.indexWhere((element) => element.id == task.id);
+    _tasks[index].status = !_tasks[index].status;
     notifyListeners();
   }
 }
