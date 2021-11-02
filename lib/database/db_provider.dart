@@ -73,7 +73,7 @@ class DBProvider {
     //query database and save the task as list of maps
     List<Map<String, dynamic>> result = await db.query(
       'todooTable',
-      orderBy: 'id DESC',
+      orderBy: 'id',
     );
 
     //convert result from list of maps to list of task
