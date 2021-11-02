@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import '../model/task_model.dart';
-import '../database/db_provider.dart';
 
 class TaskProvider extends ChangeNotifier {
   List<Task> _tasks = [];
