@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import '../model/task_model.dart';
-import 'dart:collection';
+import '../database/db_provider.dart';
 
 class TaskProvider extends ChangeNotifier {
-  final List<Task> _tasks = [];
+  List<Task> _tasks = [];
+  // Future<List<Task>> _test
 
-  // List<Task> get tasks => _tasks;
-  UnmodifiableListView<Task> get tasks => UnmodifiableListView(_tasks);
+  List<Task> get tasks => _tasks;
 
   void insertTask(Task task) {
     _tasks.add(task);
@@ -24,4 +24,10 @@ class TaskProvider extends ChangeNotifier {
     _tasks[index].status = !_tasks[index].status;
     notifyListeners();
   }
+
+  // void multiTask(Future<List<Task>> test) {
+  //   print('inside set');
+  //   _tasks = test as List<Task>;
+  //   notifyListeners();
+  // }
 }

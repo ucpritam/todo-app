@@ -41,7 +41,6 @@ class DBProvider {
       task.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace, //replace duplicate entry
     );
-    print(task.id);
   }
 
   //Delete

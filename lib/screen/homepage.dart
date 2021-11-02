@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/src/provider.dart';
 import 'package:todo_app/database/db_provider.dart';
+import 'package:todo_app/listProvider/task_provider.dart';
 import 'package:todo_app/model/task_model.dart';
 import '../widget/todo_list.dart';
 import './add_todo.dart';
@@ -23,6 +25,13 @@ class _HomePageState extends State<HomePage> {
 
   void updateItem(Task task) async {
     await DBProvider.instance.updateTask(task);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    print(DBProvider.instance.getTask());
+    // context.read<TaskProvider>().multiTask(tst);
   }
 
   @override
