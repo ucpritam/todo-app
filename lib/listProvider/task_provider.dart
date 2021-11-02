@@ -25,9 +25,9 @@ class TaskProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // void multiTask(Future<List<Task>> test) {
-  //   print('inside set');
-  //   _tasks = test as List<Task>;
-  //   notifyListeners();
-  // }
+  void multiTask(List<Task> test) {
+    print('inside set');
+    _tasks = test;
+    notifyListeners();
+  }
 }

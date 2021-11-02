@@ -30,8 +30,10 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    print(DBProvider.instance.getTask());
-    // context.read<TaskProvider>().multiTask(tst);
+    DBProvider.instance.getTask().then((value) {
+      print(value);
+      context.read<TaskProvider>().multiTask(value);
+    });
   }
 
   @override
