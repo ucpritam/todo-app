@@ -31,7 +31,6 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     DBProvider.instance.getTask().then((value) {
-      print(value);
       context.read<TaskProvider>().multiTask(value);
     });
   }

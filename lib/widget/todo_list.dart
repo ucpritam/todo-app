@@ -18,7 +18,6 @@ class TodoList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('new task added to list');
     return Expanded(
       child: Consumer<TaskProvider>(
         builder: (_, todos, __) {
@@ -31,9 +30,6 @@ class TodoList extends StatelessWidget {
                 title: data[i].title,
                 status: data[i].status,
               ),
-              // insertTask: todos.insertTask,
-              // deleteTask: todos.deleteTask,
-              // updateTask: todos.updateTask,
               insertTask: insertTask,
               deleteTask: deleteTask,
               updateTask: updateTask,

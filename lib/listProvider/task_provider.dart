@@ -5,7 +5,6 @@ import '../database/db_provider.dart';
 
 class TaskProvider extends ChangeNotifier {
   List<Task> _tasks = [];
-  // Future<List<Task>> _test
 
   List<Task> get tasks => _tasks;
 
@@ -25,9 +24,8 @@ class TaskProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void multiTask(List<Task> test) {
-    print('inside set');
-    _tasks = test;
+  void multiTask(List<Task> val) {
+    _tasks = val;
     notifyListeners();
   }
 }
